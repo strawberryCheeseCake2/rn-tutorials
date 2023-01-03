@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Text, View, SafeAreaView, FlatList } from "react-native";
-import {  ActivityIndicator } from "react-native-paper";
+import { Text, View, Pressable, FlatList } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import styled from "styled-components/native";
 
 import RestaurantInfoCard from "../components/restaurant-info-card.component";
 import SafeArea from "../../../components/utility/safe-area.component";
 import Search from "../components/search.component";
+
 
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 
@@ -14,8 +15,7 @@ const RestaurantListContainer = styled.View`
   padding: ${props => props.theme.space[3]};
 `;
 
-
-const RestaurantsScreen = () => {
+const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, isLoading, error } = useContext(RestaurantsContext);
 
   return (
@@ -27,7 +27,16 @@ const RestaurantsScreen = () => {
           <FlatList
             data={restaurants}
             renderItem={({ item }) => {
-              return <RestaurantInfoCard restaurant={item} />;
+              return (
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("RestaurantDetail", {
+                      restuarant: item,
+                    })
+                  }>
+                  <RestaurantInfoCard restaurant={item} />
+                </Pressable>
+              );
             }}
             keyExtractor={item => item.name}
             contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 8 }}
