@@ -31,7 +31,7 @@ const RestaurantsScreen = ({ navigation }) => {
                 <Pressable
                   onPress={() =>
                     navigation.navigate("RestaurantDetail", {
-                      restuarant: item,
+                      restaurant: item,
                     })
                   }>
                   <RestaurantInfoCard restaurant={item} />
